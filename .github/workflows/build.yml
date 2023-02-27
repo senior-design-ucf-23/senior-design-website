@@ -16,7 +16,7 @@ jobs:
           with:
             node-version: 16
         - run: npm install htmlhint -g
-        - run: htmlhint -v
+        - run: npx htmlhint -v
         - run: htmlhint "**/*.html"
     
     # Job 2
@@ -28,7 +28,7 @@ jobs:
           with:
             node-version: 16
         - run: npm install -g csslint
-        - run: csslint -v
+        - run: npx csslint -v
         - run: csslint "**/*.css"
     
     # Job 3
@@ -39,6 +39,7 @@ jobs:
         - uses: actions/setup-node@v3
           with:
             node-version: 16
+        - run: npm init
         - run: npm init @eslint/config -g
         - run: eslint -v
         - run: npx eslint "**/*.js"
