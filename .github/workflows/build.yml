@@ -1,0 +1,44 @@
+# Workflow for checking html, css, js
+name: File Lint Workflow
+
+# Trigger event
+on: push
+
+# Jobs run by workflow
+jobs: 
+
+    # Job 1
+    Check-HTML:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 16
+        - run: npm install htmlhint -g
+        - run: htmlhint -v
+        - run: htmlhint "**/*.html"
+    
+    # Job 2
+    Check-CSS:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 16
+        - run: npm install -g csslint
+        - run: csslint -v
+        - run: csslint "**/*.css"
+    
+    # Job 3
+    Check-JS:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 16
+        - run: npm init @eslint/config -g
+        - run: eslint -v
+        - run: npx eslint "**/*.js"
