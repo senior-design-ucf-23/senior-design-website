@@ -15,9 +15,10 @@ jobs:
         - uses: actions/setup-node@v3
           with:
             node-version: 16
+        - run: npm init -y
         - run: npm install htmlhint -g
-        - run: npx htmlhint -v
-        - run: htmlhint "**/*.html"
+        - run: npx htmlhint --version
+        - run: npx htmlhint "**/*.html"
     
     # Job 2
     Check-CSS:
@@ -27,9 +28,10 @@ jobs:
         - uses: actions/setup-node@v3
           with:
             node-version: 16
+        - run: npm init -y
         - run: npm install -g csslint
-        - run: npx csslint -v
-        - run: csslint "**/*.css"
+        - run: npx csslint --version
+        - run: npx csslint ./*.css
     
     # Job 3
     Check-JS:
@@ -39,7 +41,7 @@ jobs:
         - uses: actions/setup-node@v3
           with:
             node-version: 16
-        - run: npm init
+        - run: npm init -y
         - run: npm init @eslint/config -g
         - run: eslint -v
         - run: npx eslint "**/*.js"
