@@ -4,6 +4,7 @@ name: File Lint Workflow
 # Trigger event
 on: push
 
+
 # Jobs run by workflow
 jobs: 
 
@@ -34,6 +35,8 @@ jobs:
         - run: npx csslint ./*.css
     
     # Job 3
+    
+
     Check-JS:
       runs-on: ubuntu-latest
       steps:
@@ -42,6 +45,8 @@ jobs:
           with:
             node-version: 16
         - run: npm init -y
-        - run: npm init @eslint/config -g
-        - run: eslint -v
-        - run: npx eslint "**/*.js"
+        - name: ESLint (JS/TS) Action 
+          uses: iCrawl/action-eslint@v1
+        # - run: npm init @eslint/config -g
+        # - run: eslint -v
+        # - run: npx eslint "**/*.js"
