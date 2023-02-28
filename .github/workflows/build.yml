@@ -45,8 +45,8 @@ jobs:
           with:
             node-version: 12
         - name: yarn install
-          run: yarn install
-          run: yarn init -y
+        - run: yarn install
+        - run: yarn init
         - name: ESLint (JS/TS) Action 
           uses: iCrawl/action-eslint@v1
         # - run: npm init @eslint/config -g
