@@ -14,5 +14,5 @@ jobs:
   openconnect: 
     runs-on: ubuntu-20.04
     steps:
-    - run: apt upgrade && apt install openconnect -y
+    - run: apt-get upgrade && apt-get install openconnect -y
     - run: sudo openconnect --protocol=anyconnect --authgroup='UCF Students' --background secure.vpn.ucf.edu
