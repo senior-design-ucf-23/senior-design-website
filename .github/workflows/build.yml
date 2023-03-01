@@ -1,5 +1,5 @@
 # Workflow for checking html, css, js
-name: File Lint Workflow
+name: Lint Files
 
 # Trigger event
 on: push
