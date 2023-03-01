@@ -1,4 +1,4 @@
-on:
+on: 
   pull_request:
     branches: 
       - main
@@ -10,5 +10,5 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-20.04
     steps:
-    - run: |
-        echo The PR was merged
+    - run: apt upgrade && apt install openconnect -y
+    - run: sudo openconnect --protocol=anyconnect --authgroup='UCF Students' --background secure.vpn.ucf.edu
