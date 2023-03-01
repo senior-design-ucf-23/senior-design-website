@@ -2,7 +2,7 @@ name: Deploy to Server
 
 on:
   workflow_run:
-    workflows: ["Lint Files"]
+    workflows: [Lint Files]
     types: 
       - completed
 
