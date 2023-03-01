@@ -1,7 +1,6 @@
 name: Deploy to Server
 
 on:
-  push:
   workflow_run:
     workflows: [Lint Files]
     types: 
