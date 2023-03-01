@@ -2,14 +2,15 @@ name: Deploy to Server
 
 on:
   workflow_run:
-    workflows: [Lint Files]
+    workflows:
+      - "Lint Files"
     types: 
       - completed
 
 
 jobs:
-  on-success:
-    if: github.event.workflow_run.conclusion == 'success'
+
+  openconnect: 
     runs-on: ubuntu-20.04
     steps:
     - run: apt upgrade && apt install openconnect -y
