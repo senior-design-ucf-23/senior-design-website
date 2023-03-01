@@ -1,11 +1,12 @@
 name: Deploy to Server
 
 on:
-  workflow_run:
-    workflows:
-      - "Lint Files"
-    types: 
-      - completed
+  - push
+  # workflow_run:
+  #   workflows:
+  #     - "Lint Files"
+  #   types: 
+  #     - completed
 
 
 jobs:
