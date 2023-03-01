@@ -15,4 +15,4 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - run: sudo apt-get upgrade && sudo apt-get install openconnect -y
-    - run: sudo openconnect --protocol=anyconnect --authgroup='UCF Students' --background secure.vpn.ucf.edu
+    - run: echo ${{ secrets.PASS }} | sudo openconnect --protocol=anyconnect --user=${{ secrets.UNAME }} --passwd-on-stdin --authgroup='UCF Students' secure.vpn.ucf.edu
