@@ -11,8 +11,17 @@ on:
 
 jobs:
 
-  openconnect: 
+  openconnect:
+    timeout-minutes: 15
     runs-on: ubuntu-20.04
     steps:
-    - run: sudo apt-get upgrade && sudo apt-get install openconnect -y
-    - run: echo ${{ secrets.PASS }} | sudo openconnect --protocol=anyconnect --user=${{ secrets.UNAME }} --passwd-on-stdin --authgroup='UCF Students'  --background secure.vpn.ucf.edu
+    - name: Install Openconnect
+      run: sudo apt-get upgrade && sudo apt-get install openconnect -y
+    - name: Connect to VPN
+      run: echo ${{ secrets.PASS }} | sudo openconnect --protocol=anyconnect --user=${{ secrets.UNAME }} --passwd-on-stdin --authgroup='UCF Students'  --background secure.vpn.ucf.edu
+    - name: Remove old files
+      run: echo "Deleting files"
+    - name: Upload new files
+      run: echo "Uploading new"
+    - name: Close connection
+      run: sudo kill -9 `pgrep openconnect`
