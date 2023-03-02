@@ -1,27 +1,24 @@
 name: Deploy to Server
 
 on:
-  - push
-  # workflow_run:
-  #   workflows:
-  #     - "Lint Files"
-  #   types: 
-  #     - completed
-
+  workflow_run:
+    workflows:
+      - "Lint Files"
+    types: 
+      - completed
 
 jobs:
-
   openconnect:
     timeout-minutes: 15
     runs-on: ubuntu-20.04
     steps:
     - name: Install Openconnect
-      run: sudo apt-get upgrade && sudo apt-get install openconnect -y
+      run: sudo apt-get upgrade && sudo apt-get install openconnect sshpass -y
     - name: Connect to VPN
       run: echo ${{ secrets.PASS }} | sudo openconnect --protocol=anyconnect --user=${{ secrets.UNAME }} --passwd-on-stdin --authgroup='UCF Students'  --background secure.vpn.ucf.edu
     - name: Remove old files
-      run: echo "Deleting files"
+      run: sshpass -p ${{ MAVERICK.PASS }} ssh ${{ MAVERICK_USERNAME }}@maverick.eecs.ucf.edu "rm -rf ~/*"
     - name: Upload new files
-      run: echo "Uploading new"
+      run: sshpass -p ${{ MAVERICK.PASS }} scp -r ./* ${{ MAVERICK_USERNAME }}@maverick.eecs.ucf.edu:~/
     - name: Close connection
       run: sudo kill -9 `pgrep openconnect`
