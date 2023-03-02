@@ -18,6 +18,7 @@ jobs:
       run: sshpass -V
     - name: Get repo
       uses: actions/checkout@v3
+    - name: Show files
       run: ls
     - name: Connect to VPN
       run: echo ${{ secrets.PASS }} | sudo openconnect --protocol=anyconnect --user=${{ secrets.UNAME }} --passwd-on-stdin --authgroup='UCF Students'  --background secure.vpn.ucf.edu
