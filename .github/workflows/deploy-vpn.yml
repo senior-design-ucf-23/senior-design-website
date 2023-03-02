@@ -1,11 +1,11 @@
 name: Deploy to Server
 
 on:
-  workflow_run:
-    workflows:
-      - "Lint Files"
-    types: 
-      - completed
+  workflow_dispatch:
+    inputs:
+      upload:
+        required: true
+        type: boolean
 
 jobs:
   openconnect:
