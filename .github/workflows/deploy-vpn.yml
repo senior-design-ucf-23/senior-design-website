@@ -3,6 +3,7 @@ name: Deploy to Server
 on:
   workflow_dispatch:
     inputs:
+      deploy:
         required: true
 
 jobs:
