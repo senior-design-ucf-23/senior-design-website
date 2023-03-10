@@ -1,10 +1,9 @@
 name: Deploy to Server
 
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+        required: true
 
 jobs:
   openconnect:
