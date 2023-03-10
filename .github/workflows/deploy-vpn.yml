@@ -1,11 +1,10 @@
 name: Deploy to Server
 
 on:
-  workflow_run:
-    workflows:
-      - "Lint Files"
-    types: 
-      - completed
+  pull_request:
+    types: [closed]
+    branches:
+      - master
 
 jobs:
   openconnect:
@@ -13,12 +12,20 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: Install Openconnect
-      run: sudo apt-get upgrade && sudo apt-get install openconnect sshpass -y
+      if: github.event.pull_request.merged
+      run: |
+        sudo apt-get upgrade && sudo apt-get install openconnect sshpass -y
+        openconnect --version
+        sshpass -V
+    - name: Get repo
+      uses: actions/checkout@v3
+    - name: Show files
+      run: ls
     - name: Connect to VPN
       run: echo ${{ secrets.PASS }} | sudo openconnect --protocol=anyconnect --user=${{ secrets.UNAME }} --passwd-on-stdin --authgroup='UCF Students'  --background secure.vpn.ucf.edu
     - name: Remove old files
-      run: sshpass -p ${{ MAVERICK.PASS }} ssh ${{ MAVERICK_USERNAME }}@maverick.eecs.ucf.edu "rm -rf ~/*"
+      run: sshpass -p ${{ secrets.MAVERICK_PASS }} ssh -v -o StrictHostKeyChecking=no ${{ secrets.MAVERICK_USERNAME }}@maverick.eecs.ucf.edu "rm -rf ~/*"
     - name: Upload new files
-      run: sshpass -p ${{ MAVERICK.PASS }} scp -r ./* ${{ MAVERICK_USERNAME }}@maverick.eecs.ucf.edu:~/
+      run: sshpass -p ${{ secrets.MAVERICK_PASS }} scp -r -v ./* ${{ secrets.MAVERICK_USERNAME }}@maverick.eecs.ucf.edu:~/
     - name: Close connection
       run: sudo kill -9 `pgrep openconnect`
