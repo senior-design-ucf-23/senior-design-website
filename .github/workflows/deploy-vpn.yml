@@ -1,10 +1,10 @@
 name: Deploy to Server
 
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      deploy:
+        required: true
 
 jobs:
   openconnect:
@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: Install Openconnect
-      if: github.event.pull_request.merged
       run: |
         sudo apt-get upgrade && sudo apt-get install openconnect sshpass -y
         openconnect --version
