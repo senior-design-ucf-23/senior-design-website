@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Install Openconnect
       run: |
-        sudo apt-get upgrade && sudo apt-get install openconnect sshpass -y
+        sudo apt-get install openconnect sshpass -y
         openconnect --version
         sshpass -V
     - name: Get repo
@@ -18,7 +18,7 @@ jobs:
     - name: Show files
       run: ls
     - name: Connect to VPN
-      run: echo ${{ secrets.PASS }} | sudo openconnect --protocol=anyconnect --user=${{ secrets.UNAME }} --passwd-on-stdin --authgroup='UCF Students'  --background secure.vpn.ucf.edu
+      run: echo ${{ secrets.CHRIS_PASS }} | sudo openconnect --protocol=anyconnect --user=${{ secrets.CHRIS_UNAME }} --passwd-on-stdin --authgroup='UCF Students'  --background secure.vpn.ucf.edu
     - name: Remove old files
       run: sshpass -p ${{ secrets.MAVERICK_PASS }} ssh -v -o StrictHostKeyChecking=no ${{ secrets.MAVERICK_USERNAME }}@maverick.eecs.ucf.edu "rm -rf ~/*"
     - name: Upload new files
